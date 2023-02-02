@@ -29,11 +29,23 @@ class MyHomePage extends StatefulWidget {
 
 buttonPressed() {}
 
-// Widget buildButton(){
-//   return(
-
-//   );
-// }
+Widget buildButton(String buttonText) {
+  return Expanded(
+    child: SizedBox(
+      height: 70.0,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: OutlinedButton(
+          child: Text(
+            buttonText,
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+          onPressed: () => buttonPressed(),
+        ),
+      ),
+    ),
+  );
+}
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -55,6 +67,51 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+            Expanded(
+              child: Divider(),
+            ),
+            new Column(
+              children: [
+                new Row(
+                  children: [
+                    buildButton('7'),
+                    buildButton('8'),
+                    buildButton('9'),
+                    buildButton('/'),
+                  ],
+                ),
+                new Row(
+                  children: [
+                    buildButton('4'),
+                    buildButton('6'),
+                    buildButton('6'),
+                    buildButton('x'),
+                  ],
+                ),
+                new Row(
+                  children: [
+                    buildButton('1'),
+                    buildButton('2'),
+                    buildButton('3'),
+                    buildButton('-'),
+                  ],
+                ),
+                new Row(
+                  children: [
+                    buildButton('.'),
+                    buildButton('0'),
+                    buildButton('00'),
+                    buildButton('+'),
+                  ],
+                ),
+                new Row(
+                  children: [
+                    buildButton('CLEAR'),
+                    buildButton('='),
+                  ],
+                )
+              ],
             )
           ],
         ),

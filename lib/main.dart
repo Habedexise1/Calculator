@@ -27,27 +27,76 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-buttonPressed() {}
+class _MyHomePageState extends State<MyHomePage> {
+  String output = "0";
+  String _output = "0";
+  double num1 = 0;
+  double num2 = 0;
+  String oprand = "";
 
-Widget buildButton(String buttonText) {
-  return Expanded(
-    child: SizedBox(
-      height: 70.0,
-      child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: OutlinedButton(
-          child: Text(
-            buttonText,
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+  buttonPressed(String buttonText) {
+    if (buttonText == "CLEAR") {
+      _output = "0";
+      num1 = 0;
+      num1 = 0;
+      oprand = "";
+    } else if (buttonText == "+" ||
+        buttonText == "." ||
+        buttonText == "/" ||
+        buttonText == "x") {
+      num1 = double.parse(output);
+      oprand = buttonText;
+      _output = "0";
+    } else if (buttonText == ".") {
+      if (_output.contains(".")) {
+        print("Already contains a decimal");
+      } else {
+        _output = _output + buttonText;
+      }
+    } else if (buttonText == "=") {
+      num2 = double.parse(output);
+      if (oprand == "+") {
+        _output = (num1 + num2).toString();
+      }
+      if (oprand == "-") {
+        _output = (num1 - num2).toString();
+      }
+      if (oprand == "x") {
+        _output = (num1 * num2).toString();
+      }
+      if (oprand == "/") {
+        _output = (num1 / num2).toString();
+      }
+      num1 = 0;
+      num2 = 0;
+      oprand = "";
+    } else {
+      _output = _output + buttonText;
+    }
+    print(_output);
+    setState(() {
+      output = double.parse(_output).toStringAsFixed(0);
+    });
+  }
+
+  Widget buildButton(String buttonText) {
+    return Expanded(
+      child: SizedBox(
+        height: 70.0,
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: OutlinedButton(
+            child: Text(
+              buttonText,
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () => buttonPressed(buttonText),
           ),
-          onPressed: () => buttonPressed(),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.centerRight,
               padding: EdgeInsets.symmetric(vertical: 34.0, horizontal: 12.0),
               child: Text(
-                '0',
+                output,
                 style: TextStyle(
                   fontSize: 48.0,
                   fontWeight: FontWeight.bold,
@@ -84,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 new Row(
                   children: [
                     buildButton('4'),
-                    buildButton('6'),
+                    buildButton('5'),
                     buildButton('6'),
                     buildButton('x'),
                   ],
